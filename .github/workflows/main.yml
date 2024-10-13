@@ -37,11 +37,12 @@ jobs:
             npm i
             npm run prod
             which composer
-            composer --version
-            composer install
-            composer update
+            $HOME/bin/composer --version
+            $HOME/bin/composer install
+            $HOME/bin/composer update
             php artisan key:generate
             php artisan route:clear
             php artisan config:cache
             php artisan optimize
+            rm -rf /home/u982131153/domains/artiknesia.com/public_html/admin
             ln -s /home/u982131153/domains/artiknesia.com/admin_ARTIKNESIA/public /home/u982131153/domains/artiknesia.com/public_html/admin
