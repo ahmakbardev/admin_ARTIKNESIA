@@ -21,20 +21,27 @@ jobs:
           key: ${{ secrets.SERVER_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            cd /home/u376682195/domains/sideospary.com/new_artiknesia
+            cd /home/u982131153/domains/artiknesia.com/
             git clone https://github.com/ahmakbardev/admin_ARTIKNESIA.git
+            cd /home/u982131153/domains/artiknesia.com/admin_ARTIKNESIA/
+            git add .
+            git stash
+            git pull
             chmod +x ~/bin/composer
             echo "export PATH=$HOME/bin:$PATH" >> ~/.bash_profile
+            echo "export PATH=$HOME/bin/node/bin:$PATH" >> ~/.bash_profile
             source ~/.bash_profile
+            which node
+            node -v
+            npm -v
+            npm i
+            npm run prod
             which composer
             composer --version
-            cd /home/u376682195/domains/sideospary.com/new_artiknesia/admin_ARTIKNESIA/
-            cp .env.example .env
-            git pull origin develop
             composer install
             composer update
             php artisan key:generate
             php artisan route:clear
             php artisan config:cache
             php artisan optimize
-            ln -s /home/u376682195/domains/sideospary.com/new_artiknesia/admin_ARTIKNESIA/public /home/u376682195/domains/sideospary.com/public_html/admin
+            ln -s /home/u982131153/domains/artiknesia.com/admin_ARTIKNESIA/public /home/u982131153/domains/artiknesia.com/public_html/admin
