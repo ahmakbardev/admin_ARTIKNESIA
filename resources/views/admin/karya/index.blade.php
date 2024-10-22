@@ -111,7 +111,7 @@
                         var images = JSON.parse(karya.images);
 
                         // Check if the image is from the public folder
-                        if (images[0].startsWith('public/')) {
+                        if (images[0].startsWith('storage/')) {
                             var imageUrl = `{{ asset('${images[0]}') }}`;
                         } else {
                             var imageUrl = images[0];
