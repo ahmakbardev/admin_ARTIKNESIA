@@ -109,7 +109,15 @@
                         $('#modalKaryaPrice').text(new Intl.NumberFormat().format(karya.price));
 
                         var images = JSON.parse(karya.images);
-                        $('#modalKaryaImage').attr('src', images[0]);
+
+                        // Check if the image is from the public folder
+                        if (images[0].startsWith('public/')) {
+                            var imageUrl = `{{ asset('${images[0]}') }}`;
+                        } else {
+                            var imageUrl = images[0];
+                        }
+
+                        $('#modalKaryaImage').attr('src', imageUrl);
 
                         $('#karyaDetailModal').removeClass('hidden');
                     },
