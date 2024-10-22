@@ -19,6 +19,7 @@
                 <thead class="bg-gray-50 dark:bg-gray-700 text-xs uppercase font-semibold text-gray-700 dark:text-gray-400">
                     <tr>
                         <th class="px-4 py-3">Nama Karya</th>
+                        <th class="px-4 py-3">User</th>
                         <th class="px-4 py-3">Status</th>
                         <th class="px-4 py-3">Tanggal Upload</th>
                         <th class="px-4 py-3">Aksi</th>
@@ -30,6 +31,9 @@
                             <td class="px-4 py-3">
                                 <a href="javascript:void(0)" class="open-modal text-primary hover:text-primary-dark"
                                     data-id="{{ $karya->id }}">{{ $karya->name }}</a>
+                            </td>
+                            <td class="px-4 py-3 text-sm">
+                                {{ $karya->user_name }} <!-- Menampilkan nama user -->
                             </td>
                             <td class="px-4 py-3 text-sm">
                                 <select name="status" class="status-dropdown border border-gray-300 p-1 rounded text-xs"
@@ -84,10 +88,10 @@
             // Initialize DataTable
             var table = $('#karyaTable').DataTable({
                 "order": [
-                    [2, "desc"]
+                    [3, "desc"]
                 ],
                 "responsive": true,
-                "lengthChange": false, // Disable changing number of entries
+                "lengthChange": false,
             });
 
             // Event delegation for dynamically loaded elements
@@ -150,7 +154,7 @@
                 // Apply filtering based on the selected date range
                 $.fn.dataTable.ext.search.push(
                     function(settings, data, dataIndex) {
-                        var uploadDate = data[2]; // Index of 'Tanggal Upload' column
+                        var uploadDate = data[3]; // Index of 'Tanggal Upload' column
                         var minDate = start.format('YYYY-MM-DD');
                         var maxDate = end.format('YYYY-MM-DD');
 

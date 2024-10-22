@@ -9,7 +9,12 @@ class KaryaController extends Controller
 {
     public function index(Request $request)
     {
-        $karyas = DB::table('karyas');
+        // Mengambil data karyas beserta informasi user dengan role_id 3
+        $karyas = DB::table('karyas')
+            ->join('users', 'users.id', '=', 'karyas.user_id')
+            ->select('karyas.*', 'users.name as user_name')
+            ->where('users.role_id', 3)
+            ->get();
 
         // Jika ada filter tanggal, gunakan di query
         if ($request->has('startDate') && $request->has('endDate')) {
@@ -19,7 +24,6 @@ class KaryaController extends Controller
             $karyas->whereBetween('created_at', [$startDate, $endDate]);
         }
 
-        $karyas = $karyas->get();
         return view('admin.karya.index', compact('karyas'));
     }
 
