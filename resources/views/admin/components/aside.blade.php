@@ -45,7 +45,7 @@
                                 d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z">
                             </path>
                         </svg>
-                        <span class="ml-4">Pages</span>
+                        <span class="ml-4">Content</span>
                     </span>
                     <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
@@ -62,9 +62,9 @@
                         aria-label="submenu">
                         <li
                             class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                            <a class="w-full" href="pages/login.html">Login</a>
+                            <a class="w-full" href="{{ route('admin.karya.index') }}">Managemen Karya</a>
                         </li>
-                        <li
+                        {{-- <li
                             class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                             <a class="w-full" href="pages/create-account.html">
                                 Create account
@@ -83,18 +83,18 @@
                         <li
                             class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                             <a class="w-full" href="pages/blank.html">Blank</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </template>
             </li>
         </ul>
-        <div class="px-6 my-6">
+        {{-- <div class="px-6 my-6">
             <button
                 class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Create account
                 <span class="ml-2" aria-hidden="true">+</span>
             </button>
-        </div>
+        </div> --}}
     </div>
 </aside>
 <!-- Mobile sidebar -->
@@ -211,7 +211,7 @@
                                 d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z">
                             </path>
                         </svg>
-                        <span class="ml-4">Pages</span>
+                        <span class="ml-4">Content</span>
                     </span>
                     <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
@@ -228,9 +228,9 @@
                         aria-label="submenu">
                         <li
                             class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                            <a class="w-full" href="pages/login.html">Login</a>
+                            <a class="w-full" href="{{ route('admin.karya.index') }}">Managemen Karya</a>
                         </li>
-                        <li
+                        {{-- <li
                             class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                             <a class="w-full" href="pages/create-account.html">
                                 Create account
@@ -249,17 +249,17 @@
                         <li
                             class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                             <a class="w-full" href="pages/blank.html">Blank</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </template>
             </li>
         </ul>
-        <div class="px-6 my-6">
+        {{-- <div class="px-6 my-6">
             <button
                 class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Create account
                 <span class="ml-2" aria-hidden="true">+</span>
             </button>
-        </div>
+        </div> --}}
     </div>
 </aside>
