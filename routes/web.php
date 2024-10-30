@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticleImageController;
 use App\Http\Controllers\KaryaController;
 use App\Http\Controllers\SenimanController;
 use App\Livewire\AdminLogin;
@@ -32,4 +34,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/karya', [KaryaController::class, 'index'])->name('admin.karya.index');
     Route::post('/admin/karya/update-status/{id}', [KaryaController::class, 'updateStatus'])->name('admin.karya.update-status');
     Route::get('/admin/karya/{id}', [KaryaController::class, 'getKaryaDetail']);
+
+    Route::resource('/admin/article', ArticleController::class)->names('admin.article');
+
+    Route::post('/admin/image/upload', [ArticleImageController::class, 'upload'])->name('admin.article.image.upload');
 });
