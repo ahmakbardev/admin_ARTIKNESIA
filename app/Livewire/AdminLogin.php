@@ -35,6 +35,7 @@ class AdminLogin extends Component
             'password' => $this->password,
         ];
 
+
         if (Auth::attempt($credentials)) {
             // Login sukses, arahkan ke halaman dashboard admin
             return redirect()->route('admin.dashboard');

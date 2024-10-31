@@ -9,6 +9,15 @@
     </div>
 
     <div>
+        @if ($errors->any())
+            <div class="bg-red-600 text-white w-full">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{route('admin.article.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="grid grid-cols-6 gap-x-6">

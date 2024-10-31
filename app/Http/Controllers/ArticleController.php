@@ -19,7 +19,14 @@ class ArticleController extends Controller
      */
     public function index(Request $request): View
     {
-        $articles = Article::query()->with(['author:id,name'])->select('id', 'title', 'author_id', 'status', 'created_at', 'slug')->get();
+        $user = Auth::user();
+        $articles = Article::query()->with(['author:id,name'])->select('id', 'title', 'author_id', 'status', 'created_at', 'slug');
+        if ($user->role->nama === 'writer') {
+            $articles->where('author_id', $user->id)->get();
+        } else {
+            $articles->get();
+        }
+
         return view('admin.article.index', compact('articles'));
     }
 
