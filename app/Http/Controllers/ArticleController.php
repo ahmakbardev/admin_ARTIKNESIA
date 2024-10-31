@@ -22,9 +22,9 @@ class ArticleController extends Controller
         $user = Auth::user();
         $articles = Article::query()->with(['author:id,name'])->select('id', 'title', 'author_id', 'status', 'created_at', 'slug');
         if ($user->role->nama === 'writer') {
-            $articles->where('author_id', $user->id)->get();
+            $articles = $articles->where('author_id', $user->id)->get();
         } else {
-            $articles->get();
+            $articles = $articles->get();
         }
 
         return view('admin.article.index', compact('articles'));

@@ -25,7 +25,7 @@ class ArticleImageController extends Controller
 
             Storage::disk('public')->put('posts/' . $name, $img);
 
-            return response()->json(['fileName' => $name, 'uploaded' => 1, 'url' => "/storage/posts/$name"]);
+            return response()->json(['fileName' => $name, 'uploaded' => 1, 'url' => asset("storage/posts/$name")        ]);
         }
 
         return null;
