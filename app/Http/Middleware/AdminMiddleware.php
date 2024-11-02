@@ -14,7 +14,7 @@ class AdminMiddleware
         // Memeriksa apakah pengguna telah login
         if (Auth::check()) {
             // Memeriksa apakah pengguna memiliki role_id 1 (admin)
-            if (Auth::user()->role_id === 1) {
+            if (Auth::user()->role_id === 1 || Auth::user()->role->nama === 'writer') {
                 return $next($request);
             }
         }
