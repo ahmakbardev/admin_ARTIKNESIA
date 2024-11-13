@@ -23,9 +23,9 @@ class ArticleImageController extends Controller
             $img->stream();
             $name = str_replace('png', '', $name) . '.png';
 
-            $fileName = $file->store('media', 'public');
+            Storage::disk('public')->put('posts/' . $name, $img);
 
-            return response()->json(['fileName' => $name, 'uploaded' => 1, 'url' => asset("storage/$fileName")]);
+            return response()->json(['fileName' => $name, 'uploaded' => 1, 'url' => "https://artiknesia.com/admin/images/posts/$name"]);
         }
 
         return null;

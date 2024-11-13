@@ -73,8 +73,10 @@ class ArticleController extends Controller
 
         // #[Image Upload] Checking image & upload in storage
         if ($request->hasFile('image')) {
-            $file = $request->file('image')->store('media', 'public');
-            $validated['image'] = $file;
+            $file = $request->file('image');
+            $customFileName = $validated['image_caption'] . '-' . time() . '.' . $file->getClientOriginalExtension();
+            $filePath = Storage::disk('public')->putFileAs('images/posts', $file, $customFileName);
+            $validated['image'] = $filePath;
         }
 
         $validated['author_id'] = Auth::id();
@@ -136,8 +138,14 @@ class ArticleController extends Controller
         // #[Image Upload] Checking image & upload in storage
         if ($request->hasFile('image')) {
 
-            $file = $request->file('image')->store('media', 'public');
-            $validated['image'] = $file;
+            if ($article->image) {
+                Storage::disk('public')->delete($article->image);
+            }
+
+            $file = $request->file('image');
+            $customFileName = $validated['image_caption'] . '-' . time() . '.' . $file->getClientOriginalExtension();
+            $filePath = Storage::disk('public')->putFileAs('images/posts', $file, $customFileName);
+            $validated['image'] = $filePath;
         } else {
             $validated['image'] = $article->image;
         }

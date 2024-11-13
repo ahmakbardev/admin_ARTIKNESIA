@@ -69,7 +69,7 @@
                         </select>
                     </div>
                     <div class="w-full">
-                        <a href="{{ '/storage/'. $article->image }}" target="_blank">
+                        <a href="{{ 'https://artiknesia.com/admin/'. $article->image }}" target="_blank">
                             <img src="{{ asset('storage/'. $article->image) }}" alt="{{ $article->image_caption }}"
                                  class="object-cover h-52 w-full"/>
                         </a>

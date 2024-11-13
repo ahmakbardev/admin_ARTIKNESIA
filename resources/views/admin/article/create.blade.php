@@ -25,16 +25,17 @@
                     @livewire('title-slug-component')
                     <div class="w-full">
                         <label class="text-white text-sm">Short Title</label>
-                        <input type="text" class="w-full px-2 rounded-md h-8" name="short_title" id="short_title"/>
+                        <input type="text" class="w-full px-2 rounded-md h-8" name="short_title" id="short_title"
+                               value="{{old('short_title')}}"/>
                     </div>
                     <div class="w-full">
                         <label class="text-white text-sm">Short Description</label>
                         <textarea id="short-description" class="w-full rounded-md"
-                                  name="short_description"></textarea>
+                                  name="short_description">{{old('short_description')}}</textarea>
                     </div>
                     <div class="w-full">
                         <label class="text-white text-sm">Description</label>
-                        <textarea id="description" class="w-full rounded-md" name="description"></textarea>
+                        <textarea id="description" class="w-full rounded-md" name="description">{{old('description')}}</textarea>
                     </div>
                 </div>
                 <div class="col-span-2 flex flex-col gap-y-3">
@@ -66,7 +67,7 @@
                     </div>
                     <div class="w-full">
                         <label class="text-white text-sm">Image Caption</label>
-                        <input type="text" class="w-full px-2 rounded-md h-8" name="image_caption" id="image-caption"/>
+                        <input type="text" class="w-full px-2 rounded-md h-8" name="image_caption" id="image-caption" value="{{old('image_caption')}}"/>
                     </div>
                     <div class="w-full flex flex-col">
                         <label class="text-white text-sm">Status</label>
@@ -77,12 +78,12 @@
                     </div>
                     <div class="w-full">
                         <label class="text-white text-sm">Meta Title</label>
-                        <input type="text" class="w-full px-2 rounded-md h-8" name="meta_title" id="meta-title"/>
+                        <input type="text" class="w-full px-2 rounded-md h-8" name="meta_title" id="meta-title" value="{{old('meta_title')}}"/>
                     </div>
                     <div class="w-full">
                         <label class="text-white text-sm">Meta Description</label>
                         <input type="text" class="w-full px-2 rounded-md h-8" name="meta_description"
-                               id="meta-description"/>
+                               id="meta-description" value="{{old('meta_description')}}"/>
                     </div>
                     <div class="w-full flex flex-col">
                         <label class="text-white text-sm">Meta Robot</label>
