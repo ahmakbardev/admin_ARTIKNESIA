@@ -70,7 +70,7 @@
                     </div>
                     <div class="w-full">
                         <a href="{{ 'https://artiknesia.com/admin/'. $article->image }}" target="_blank">
-                            <img src="{{ asset('storage/'. $article->image) }}" alt="{{ $article->image_caption }}"
+                            <img src="{{ 'https://artiknesia.com/admin/'. $article->image }}" alt="{{ $article->image_caption }}"
                                  class="object-cover h-52 w-full"/>
                         </a>
                         <label class="text-white text-sm">Image</label>
