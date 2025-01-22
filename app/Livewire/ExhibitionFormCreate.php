@@ -90,7 +90,6 @@ class ExhibitionFormCreate extends Component
 
         $customFileName = $this->slug . '-' . time() . '.' . $this->banner->getClientOriginalExtension();
 
-        // Store file with custom name in public/images/exhibitions directory
         $filePath = Storage::disk('public')->putFileAs(
             'exhibitions',
             $this->banner,
