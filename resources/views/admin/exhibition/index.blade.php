@@ -18,6 +18,7 @@
                 <thead class="bg-gray-50 dark:bg-gray-700 text-xs uppercase font-semibold text-gray-700 dark:text-gray-400">
                 <tr>
                     <th class="px-4 py-3">#</th>
+                    <th class="px-4 py-3">Event Name</th>
                     <th class="px-4 py-3">Aksi</th>
                 </tr>
                 </thead>
@@ -26,6 +27,7 @@
                     @foreach($exhibitions as $item)
                         <tr class="text-gray-700 dark:text-gray-400">
                             <td class="px-4 py-3 text-sm">{{ $loop->iteration }}</td>
+                            <td class="px-4 py-3 text-sm">{{ $item->name }}</td>
                             <td class="px-4 py-3 text-sm">
                                 <a href="{{ route('admin.exhibition.edit', $item->id) }}"
                                    class="bg-yellow-700 text-white px-2 py-0.5 rounded text-sm">Edit</a>
@@ -42,7 +44,7 @@
                     @endforeach
                 @else
                     <tr class="text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3 text-sm text-center" colspan="2">Tidak ada data</td>
+                        <td class="px-4 py-3 text-sm text-center" colspan="3">Tidak ada data</td>
                     </tr>
                 @endif
                 </tbody>

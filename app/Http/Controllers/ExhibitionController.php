@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Exhibition;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ExhibitionController extends Controller
@@ -98,6 +99,9 @@ class ExhibitionController extends Controller
      */
     public function destroy(Exhibition $exhibition): RedirectResponse
     {
+        if (Storage::disk('public')->exists($exhibition->banner)) {
+            Storage::disk('public')->delete($exhibition->banner);
+        }
         $exhibition->delete();
 
         return redirect()->route('admin.exhibition.index')->with('success', 'Pameran berhasil dihapus');
