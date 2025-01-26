@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Exhibition;
+use App\Models\MasterCity;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -64,7 +65,7 @@ class ExhibitionFormEdit extends Component
             'price' => 'nullable|numeric|min:0',
             'newBanner' => 'nullable|image|max:1024|mimes:jpg,jpeg,png',
             'organizer' => 'required|string|max:255',
-            'status' => 'required|string|in:active,inactive',
+            'status' => 'required|string',
             'link' => 'nullable|url',
         ];
     }
@@ -144,6 +145,8 @@ class ExhibitionFormEdit extends Component
 
     public function render()
     {
-        return view('livewire.exhibition-form-edit');
+        return view('livewire.exhibition-form-edit', [
+            'cities' => MasterCity::query()->with('province')->get()
+        ]);
     }
 }

@@ -1,5 +1,6 @@
 <div class="w-full ">
-    <form wire:submit.prevent="submit" enctype="multipart/form-data" class="flex flex-col gap-4 w-full">
+    <form wire:submit.prevent="submit" enctype="multipart/form-data"
+          class="flex flex-col gap-4 w-full">
         <div class="flex gap-4">
             <div class="w-full">
                 <label class="text-white text-sm">Name</label>
@@ -29,7 +30,8 @@
         </div>
         <div class="w-full">
             <label class="text-white text-sm">Address</label>
-            <textarea class="w-full px-2 rounded-md" name="address" id="address" rows="2" wire:model="address"
+            <textarea class="w-full px-2 rounded-md" name="address" id="address" rows="2"
+                      wire:model="address"
             >{{ old('address') }}</textarea>
             @error('address')
             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -38,7 +40,8 @@
         <div class="flex gap-4">
             <div class="w-full">
                 <label class="text-white text-sm">Start Date</label>
-                <input type="date" class="w-full px-2 rounded-md h-8" name="start_date" id="start_date"
+                <input type="date" class="w-full px-2 rounded-md h-8" name="start_date"
+                       id="start_date"
                        wire:model="start_date"
                        value="{{ old('start_date') }}"/>
                 @error('start_date')
@@ -58,7 +61,8 @@
         <div class="flex gap-4">
             <div class="w-full">
                 <label class="text-white text-sm">Organizer</label>
-                <input type="text" class="w-full px-2 rounded-md h-8" name="organizer" id="organizer"
+                <input type="text" class="w-full px-2 rounded-md h-8" name="organizer"
+                       id="organizer"
                        wire:model="organizer"
                        value="{{ old('organizer') }}"/>
                 @error('organizer')
@@ -67,9 +71,19 @@
             </div>
             <div class="w-full">
                 <label class="text-white text-sm">Category</label>
-                <input type="text" class="w-full px-2 rounded-md h-8" name="category" id="category"
-                       wire:model="category"
-                       value="{{ old('category') }}"/>
+                <select name="category" id="category" class="w-full px-2 rounded-md h-8"
+                        wire:model="category">
+                    <option>Pilih salah satu</option>
+                    <option value="lukisan" {{ old('category') == 'lukisan' ? 'selected' : '' }}>
+                        Lukisan
+                    </option>
+                    <option value="fotografi" {{ old('category') == 'fotografi' ? 'selected' : '' }}>
+                        Fotografi
+                    </option>
+                    <option value="instalasi" {{ old('category') == 'instalasi' ? 'selected' : '' }}>
+                        Instalasi
+                    </option>
+                </select>
                 @error('category')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -78,16 +92,31 @@
         <div class="flex gap-4">
             <div class="w-full">
                 <label class="text-white text-sm">City</label>
-                <input type="text" class="w-full px-2 rounded-md h-8" name="city" id="city" wire:model="city"
-                       value="{{ old('city') }}"/>
+                <select class="select2 w-full px-2 rounded-md h-8" name="city"
+                        id="city" wire:model="city">
+                    <option>Pilih salah satu</option>
+                    @foreach($cities as $item)
+                        <option value="{{ $item->name }}" {{ old('city') == $item->name ? 'selected' : '' }}>
+                            {{ $item->province->name . ' - ' .$item->name }}
+                        </option>
+                    @endforeach
+                </select>
                 @error('city')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
             <div class="w-full">
                 <label class="text-white text-sm">Type</label>
-                <input type="text" class="w-full px-2 rounded-md h-8" name="type" id="type" wire:model="type"
-                       value="{{ old('type') }}"/>
+                <select name="type" id="type" class="w-full px-2 rounded-md h-8"
+                        wire:model="type">
+                    <option>Pilih salah satu</option>
+                    <option value="onsite" {{ old('type') == 'onsite' ? 'selected' : '' }}>
+                        Onsite
+                    </option>
+                    <option value="virtual" {{ old('type') == 'virtual' ? 'selected' : '' }}>
+                        Virtual
+                    </option>
+                </select>
                 @error('type')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -96,7 +125,8 @@
         <div class="flex gap-4">
             <div class="w-full">
                 <label class="text-white text-sm">Price</label>
-                <input type="number" class="w-full px-2 rounded-md h-8" name="price" id="price" wire:model="price"
+                <input type="number" class="w-full px-2 rounded-md h-8" name="price" id="price"
+                       wire:model="price"
                        value="{{ old('price', 0) }}"/>
                 @error('price')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -104,9 +134,13 @@
             </div>
             <div class="w-full">
                 <label class="text-white text-sm">Status</label>
-                <select name="status" id="status" class="w-full px-2 rounded-md h-8" wire:model="status">
-                    <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
-                    <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive
+                <select name="status" id="status" class="w-full px-2 rounded-md h-8"
+                        wire:model="status">
+                    <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>
+                        Active
+                    </option>
+                    <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>
+                        Inactive
                     </option>
                 </select>
                 @error('status')
@@ -116,7 +150,8 @@
         </div>
         <div class="w-full">
             <label class="text-white text-sm">Link</label>
-            <input type="url" class="w-full px-2 rounded-md h-8" name="link" id="link" wire:model="link"
+            <input type="url" class="w-full px-2 rounded-md h-8" name="link" id="link"
+                   wire:model="link"
                    value="{{ old('link') }}"/>
             @error('link')
             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -141,6 +176,7 @@
                 </div>
             @endif
         </div>
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md w-full">Simpan</button>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md w-full">Simpan
+        </button>
     </form>
 </div>

@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Exhibition;
+use App\Models\MasterCity;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -106,6 +107,8 @@ class ExhibitionFormCreate extends Component
 
     public function render()
     {
-        return view('livewire.exhibition-form-create');
+        return view('livewire.exhibition-form-create',[
+            'cities' => MasterCity::query()->with('province')->get()
+        ]);
     }
 }
