@@ -37,3 +37,6 @@ class ExhibitionSeeder extends Seeder
         });
     }
 }
+
+
+
