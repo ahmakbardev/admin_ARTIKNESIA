@@ -64,7 +64,7 @@ jobs:
 
             # Setup symlink ke public_html jika belum ada
             if [ ! -L "/home/u982131153/domains/artiknesia.com/public_html/admin" ]; then
-              ln -s $ADMIN_DIR/public/* /home/u982131153/domains/artiknesia.com/public_html/admin
+              ln -s $ADMIN_DIR/public/* /home/u982131153/domains/artiknesia.com/public_html/staging-admin
             fi
 
             if [ ! -L "/home/u982131153/domains/artiknesia.com/public_html/staging/storage" ]; then
