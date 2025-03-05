@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->json('tags')->nullable();
             $table->json('categories')->nullable();
             $table->foreignId('author_id')->constrained('users')->restrictOnDelete();
+            $table->index('view_count')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
