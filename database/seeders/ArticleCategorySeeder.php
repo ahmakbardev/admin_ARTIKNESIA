@@ -13,8 +13,10 @@ class ArticleCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $categories = ['Art', 'Paint', 'Therapy', 'Film', 'Invest', 'Educational', 'Inspirational', 'Promotional'];
-
+        $categories = [
+            'Lukisan', 'Patung', 'Fotografi', 'Seni Digital', 
+            'Seni Instalasi', 'Seni Pertunjukan', 'Seni Grafis', 'Keramik'
+        ];
         foreach ($categories as $categorie) {
             ArticleCategory::firstOrCreate(['name' => $categorie]);
         }
