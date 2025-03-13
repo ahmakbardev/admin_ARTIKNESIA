@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Article;
+use App\Models\ArticleCategory;
 use App\Models\ArticleTag;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -28,8 +29,11 @@ class ArticleFactory extends Factory
         $user = User::where('email', 'bariqfirjatullah1803@gmail.com')->first()
             ?? User::factory()->create();
 
-        // Cari Article Yang Sudah Di Buat
+        // Cari Tag Article Yang Sudah Di Buat
         $articleTagIds = ArticleTag::pluck('id')->toArray();
+
+        // Cari Cateogry Artucle
+        $articleCategoryIds = ArticleCategory::pluck('id')->toArray();
 
         // Membuat descripsi / isi artikel
         $description = $this->faker->paragraphs(10, true);
@@ -47,7 +51,7 @@ class ArticleFactory extends Factory
             'image_caption' => $this->faker->sentence(),
             'status' => 'publish',
             'tags' => $this->faker->randomElements($articleTagIds, $this->faker->numberBetween(1, 3)),
-            'categories' => $this->faker->randomElements(['News', 'Tutorial', 'Review', 'Opinion'], $this->faker->numberBetween(1, 2)),
+            'categories' => $this->faker->randomElements($articleCategoryIds, $this->faker->numberBetween(1, 1)),
             'author_id' => $user->id,
             'view_count' => $this->faker->numberBetween(0, 1000),
             'created_at' => now(),
