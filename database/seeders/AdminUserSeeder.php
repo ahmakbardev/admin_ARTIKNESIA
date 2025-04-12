@@ -21,14 +21,19 @@ class AdminUserSeeder extends Seeder
 //            'password' => Hash::make('Artiknesia.id123980'),
 //            'role_id' => 1, // Role ID untuk admin
 //        ]);
-        User::create([
-            'name' => 'Bariq Firjatullah',
-            'username' => 'bariqfirjatullah',
-            'alamat' => '',
-            'paket_id' => '1',
-            'email' => 'bariqfirjatullah1803@gmail.com',
-            'password' => Hash::make('bariq123321'),
-            'role_id' => 1, // Role ID untuk admin
-        ]);
+        User::firstOrCreate(
+            [
+                'name' => 'Bariq Firjatullah'
+            ],
+            [
+                'username' => 'bariqfirjatullah',
+                'alamat' => '',
+                'paket_id' => '1',
+                'email' => 'bariqfirjatullah1803@gmail.com',
+                'password' => Hash::make('bariq123321'),
+                'role_id' => 1,
+                // Role ID untuk admin
+            ]
+        );
     }
 }

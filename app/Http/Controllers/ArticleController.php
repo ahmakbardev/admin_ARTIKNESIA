@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
+use function PHPUnit\Framework\isNull;
+
 class ArticleController extends Controller
 {
     /**
@@ -20,12 +22,20 @@ class ArticleController extends Controller
     public function index(Request $request): View
     {
         $user = Auth::user();
-        $articles = Article::query()->with(['author:id,name'])->select('id', 'title', 'author_id', 'status', 'created_at', 'slug');
+        $articles = Article::query()
+            ->with(['author:id,name'])
+            ->select('id', 'title', 'author_id', 'status', 'created_at', 'slug');
         if ($user->role->nama === 'writer') {
-            $articles = $articles->where('author_id', $user->id)->get();
-        } else {
-            $articles = $articles->get();
+            $articles->where('author_id', $user->id);
         }
+        if ($request->filled('status')) {
+            $articles->where('status', $request->status);
+        }
+        if ($request->filled('title')) {
+           $articles->where('title', 'like', '%' . $request->title . '%');
+        }
+
+        $articles = $articles->get();
 
         return view('admin.article.index', compact('articles'));
     }
@@ -206,8 +216,10 @@ class ArticleController extends Controller
     private function insertOrUpdate(string $type, array $value, string $model): array
     {
         // Separate new and existing items
-        $newItems = array_map(fn($item) => ['name' => str_replace('new-', '', $item)],
-            array_filter($value, fn($item) => str_starts_with($item, 'new')));
+        $newItems = array_map(
+            fn($item) => ['name' => str_replace('new-', '', $item)],
+            array_filter($value, fn($item) => str_starts_with($item, 'new'))
+        );
         $existingItems = array_filter($value, fn($item) => !str_starts_with($item, 'new'));
 
         // Insert new items and get their IDs
