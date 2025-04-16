@@ -178,7 +178,7 @@
             @else
                 @if($banner)
                     <div class="mb-2">
-                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($banner) }}"
+                        <img src="{{asset('storage/'.ltrim($banner, '/')) }}"
                              alt="Current Banner"
                              class="h-32 object-cover rounded">
                     </div>

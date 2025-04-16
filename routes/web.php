@@ -45,6 +45,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/admin/writer', WriterController::class)->names('admin.writer')->except('show');
 
     Route::resource('admin/exhibition', ExhibitionController::class)->names('admin.exhibition')->except('show');
+    
     Route::resource('admin/province', ProvinceController::class)->names('admin.province')->except('show');
     Route::resource('admin/city', CityController::class)->names('admin.city')->except('show');
 });

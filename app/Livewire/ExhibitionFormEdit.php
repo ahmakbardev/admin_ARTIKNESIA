@@ -12,7 +12,6 @@ use Livewire\WithFileUploads;
 class ExhibitionFormEdit extends Component
 {
     use WithFileUploads;
-
     public Exhibition $exhibition;
     public $name;
     public $slug;
@@ -66,7 +65,7 @@ class ExhibitionFormEdit extends Component
             'newBanner' => 'nullable|image|max:1024|mimes:jpg,jpeg,png',
             'organizer' => 'required|string|max:255',
             'status' => 'required|string',
-            'link' => 'nullable|url',
+            'link' => 'required|url',
         ];
     }
 
