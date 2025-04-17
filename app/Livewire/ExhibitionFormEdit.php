@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Exhibition;
+use App\Models\ExhibitionImage;
 use App\Models\MasterCity;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -29,6 +30,11 @@ class ExhibitionFormEdit extends Component
     public $status;
     public $link;
     public $slugError = '';
+    public $exhibition_images = [];
+    public $new_exhibition_images = [];
+    public $new_image;
+    public $link_vidio = '';
+    public $embed_link = '';
 
     public function mount(Exhibition $exhibition)
     {
@@ -47,6 +53,8 @@ class ExhibitionFormEdit extends Component
         $this->organizer = $exhibition->organizer;
         $this->status = $exhibition->status;
         $this->link = $exhibition->link;
+        $this->exhibition_images = $exhibition->images;
+        $this->link_vidio = $exhibition->link_vidio;
     }
 
     protected function rules()
@@ -67,6 +75,54 @@ class ExhibitionFormEdit extends Component
             'status' => 'required|string',
             'link' => 'required|url',
         ];
+    }
+
+    public function updatedNewImage()
+    {
+        if (count($this->exhibition_images) + count($this->new_exhibition_images) >= 3) {
+            $this->addError('new_exhibition_images', 'Maksimal 3 gambar boleh ditambahkan');
+            return;
+        }
+
+        $this->validate([
+            'new_image' => 'image|max:1024',
+        ]);
+
+        $this->new_exhibition_images[] = $this->new_image;
+    }
+
+    public function removeImage($index)
+    {
+        unset($this->new_exhibition_images[$index]);
+        $this->new_exhibition_images = array_values($this->new_exhibition_images);
+    }
+
+    public function removeExhibitionImage($id_images)
+    {
+        // Menghapus Gambar di file dan database
+        $exhibition_image = ExhibitionImage::find($id_images);
+        if ($exhibition_image) {
+            Storage::disk('public')->delete($exhibition_image->image_path);
+            $exhibition_image->delete();
+
+            $this->exhibition_images = $this->exhibition->images;
+        }
+
+    }
+
+    public function updatedLinkVidio($value)
+    {
+        $this->validate([
+            'link_vidio' => 'url'
+        ]);
+        $this->embed_link = $this->convertToEmbed($value);
+    }
+    public function convertToEmbed($url)
+    {
+        if (Str::contains($url, 'youtu.be/')) {
+            return str_replace('youtu.be/', 'www.youtube.com/embed/', $url);
+        }
+        return $url;
     }
 
     public function updatedName($value)
