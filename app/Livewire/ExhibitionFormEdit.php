@@ -55,6 +55,7 @@ class ExhibitionFormEdit extends Component
         $this->link = $exhibition->link;
         $this->exhibition_images = $exhibition->images;
         $this->link_vidio = $exhibition->link_vidio;
+        $this->updatedLinkVidio($exhibition->link_vidio);
     }
 
     protected function rules()
@@ -71,9 +72,11 @@ class ExhibitionFormEdit extends Component
             'end_date' => 'required|date|after_or_equal:start_date',
             'price' => 'nullable|numeric|min:0',
             'newBanner' => 'nullable|image|max:1024|mimes:jpg,jpeg,png',
+            'new_exhibition_images' => 'required|array|min:1|max:3',
             'organizer' => 'required|string|max:255',
             'status' => 'required|string',
             'link' => 'required|url',
+            'link_vidio' => 'nullable|string|url',
         ];
     }
 
@@ -104,10 +107,8 @@ class ExhibitionFormEdit extends Component
         if ($exhibition_image) {
             Storage::disk('public')->delete($exhibition_image->image_path);
             $exhibition_image->delete();
-
             $this->exhibition_images = $this->exhibition->images;
         }
-
     }
 
     public function updatedLinkVidio($value)
@@ -186,8 +187,20 @@ class ExhibitionFormEdit extends Component
             }
 
             unset($validated['newBanner']);
-
+            // For Multiple Image Galery
+            $filePathMultipleImage = [];
+            foreach ($this->new_exhibition_images as $index => $image) {
+                $customFileName = $this->slug . '-' . time() . '-' . $index . '.' . $image->getClientOriginalExtension();
+                $filePathGalery = Storage::disk('public')->putFileAs(
+                    'exhibitions/galery',
+                    $image,
+                    $customFileName
+                );
+                $filePathMultipleImage[] = ['image_path' => $filePathGalery];
+            }
             $this->exhibition->update($validated);
+            $this->exhibition->images()->createMany($filePathMultipleImage);
+
 
             session()->flash('success', 'Pameran berhasil diperbarui');
             return redirect()->route('admin.exhibition.index');

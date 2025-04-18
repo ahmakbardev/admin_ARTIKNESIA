@@ -178,30 +178,34 @@
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror
             <div class="mt-2 flex gap-4">
-                <div class="relative group flex gap-4">
+                <div class="group flex gap-4">
                     @foreach ($new_exhibition_images as $key => $item_image)
-                        <div>
+                        <div class="relative">
                             <img src="{{ $item_image->temporaryUrl() }}" alt="exhibition_image Preview"
                                 class="h-32 object-cover rounded">
                             <button type="button" wire:click="removeImage({{ $key }})"
-                                class="absolute top-1 right-1 bg-red-500 text-white rounded-full px-2 py-0.5 text-xs hover:bg-red-700">×</button>
+                                wire:confirm="Hapus Gambar? Data gambar ini akan dihapus permanen dan tidak dapat dikembalikan"
+                                class="absolute right-0 bottom-0 bg-red-500 text-white rounded-full px-2 py-0.5 text-xs hover:bg-red-700">×</button>
                         </div>
                     @endforeach
 
                     @foreach ($exhibition_images as $key => $item_image)
-                        <div>
+                        <div class="relative">
                             <img src="{{ asset('storage/' . ltrim($item_image->image_path, '/')) }}"
                                 alt="exhibition_image Preview" class="h-32 object-cover rounded">
                             <button type="button" wire:click="removeExhibitionImage({{ $item_image->id }})"
                                 wire:confirm="Hapus Gambar? Data gambar ini akan dihapus permanen dan tidak dapat dikembalikan"
-                                class="absolute top-1 right-1 bg-red-500 text-white rounded-full px-2 py-0.5 text-xs hover:bg-red-700">×</button>
+                                class="absolute right-0 bottom-0 bg-red-500 text-white rounded-full px-2 py-0.5 text-xs hover:bg-red-700">×</button>
                         </div>
                     @endforeach
                 </div>
             </div>
-            @error('new_exhibition_images')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-            @enderror
+            <div>
+                @error('new_exhibition_images')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
         </div>
 
         {{-- Link Youtube --}}
