@@ -128,11 +128,10 @@ class ExhibitionFormEdit extends Component
 
     public function updatedName($value)
     {
-        $this->validateOnly('name');
-        if (empty($this->slug)) {
-            $this->slug = Str::slug($value);
-            $this->validateSlug();
-        }
+
+        $this->slug = Str::slug($value);
+        $this->validateSlug();
+
     }
 
     public function updatedSlug($value)

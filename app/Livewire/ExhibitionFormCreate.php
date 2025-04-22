@@ -94,7 +94,6 @@ class ExhibitionFormCreate extends Component
 
     public function updatedName($value)
     {
-        $this->validateOnly('name');
         $this->slug = Str::slug($value);
         $this->validateSlug();
     }
