@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->unsignedBigInteger('view_count')->default(0);
+            $table->index('view_count')->nullable();
         });
     }
 
