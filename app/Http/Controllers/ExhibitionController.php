@@ -49,7 +49,7 @@ class ExhibitionController extends Controller
             'banner' => 'required|string|max:255',
             'organizer' => 'required|string|max:255',
             'status' => 'required|string|in:active,inactive',
-            'link' => 'nullable|url',
+            'link' => 'required|url',
         ]);
 
         Exhibition::query()->create($validated);
@@ -86,7 +86,7 @@ class ExhibitionController extends Controller
             'banner' => 'required|string|max:255',
             'organizer' => 'required|string|max:255',
             'status' => 'required|string|in:active,inactive',
-            'link' => 'nullable|url',
+            'link' => 'required|url',
         ]);
 
         $exhibition->update($validated);
