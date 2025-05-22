@@ -24,10 +24,13 @@ class ExhibitionFormCreate extends Component
     public $end_date = '';
     public $price = 0;
     public $banner;  // Changed to handle file upload
+    public $exhibition_images = [];
+    public $new_image;
+    public $link_vidio = '';
+    public $embed_link = '';
     public $organizer = '';
     public $status = 'active';
     public $link = '';
-
     public $slugError = '';
 
     protected function rules()
@@ -46,13 +49,51 @@ class ExhibitionFormCreate extends Component
             'banner' => 'required|image|max:1024', // Changed validation rule for image
             'organizer' => 'required|string|max:255',
             'status' => 'required|string|in:active,inactive',
-            'link' => 'nullable|url',
+            'link' => 'required|url',
+            'link_vidio' => 'nullable|string|url',
+            'exhibition_images' => 'required|array|min:1|max:3'
         ];
+    }
+
+    public function updatedNewImage()
+    {
+        if (count($this->exhibition_images) >= 3) {
+            $this->addError('exhibition_images', 'Maksimal 3 gambar boleh ditambahkan');
+            return;
+        }
+
+        $this->validate([
+            'new_image' => 'image|max:1024',
+        ]);
+
+        $this->exhibition_images[] = $this->new_image;
+    }
+
+    public function removeImage($index)
+    {
+        unset($this->exhibition_images[$index]);
+        $this->exhibition_images = array_values($this->exhibition_images);
+    }
+
+    public function updatedLinkVidio($value)
+    {
+        $this->validate([
+            'link_vidio' => 'url'
+        ]);
+        $this->embed_link = $this->convertToEmbed($value);
+    }
+    public function convertToEmbed($url)
+    {
+        // Jika format youtu.be/xxxx
+        if (Str::contains($url, 'youtu.be/')) {
+            return str_replace('youtu.be/', 'www.youtube.com/embed/', $url);
+        }
+
+        return $url;
     }
 
     public function updatedName($value)
     {
-        $this->validateOnly('name');
         $this->slug = Str::slug($value);
         $this->validateSlug();
     }
@@ -84,8 +125,8 @@ class ExhibitionFormCreate extends Component
     public function submit()
     {
         $validated = $this->validate();
-
         if (!$this->validateSlug()) {
+            dump('pernah digunakan');
             return;
         }
 
@@ -96,10 +137,22 @@ class ExhibitionFormCreate extends Component
             $this->banner,
             $customFileName
         );
-
         $validated['banner'] = $filePath;
 
-        Exhibition::create($validated);
+        // For Multiple Image Galery
+        $filePathMultipleImage = [];
+        foreach ($this->exhibition_images as $index => $image) {
+            $customFileName = $this->slug . '-' . time() . '-' . $index . '.' . $image->getClientOriginalExtension();
+            $filePathGalery = Storage::disk('public')->putFileAs(
+                'exhibitions/galery',
+                $image,
+                $customFileName
+            );
+            $filePathMultipleImage[] = ['image_path' => $filePathGalery];
+        }
+        $exhibition = Exhibition::create($validated);
+        $exhibition->images()->createMany($filePathMultipleImage);
+
 
         session()->flash('success', 'Pameran berhasil ditambahkan');
         return redirect()->route('admin.exhibition.index');
@@ -107,7 +160,7 @@ class ExhibitionFormCreate extends Component
 
     public function render()
     {
-        return view('livewire.exhibition-form-create',[
+        return view('livewire.exhibition-form-create', [
             'cities' => MasterCity::query()->with('province')->get()
         ]);
     }
